@@ -207,56 +207,84 @@
     
     <div class="post-body post-content">
         <ul>
-<li><p>为什么需要<br>降低Review成本，可以明确知道本次提交的改变和影响<br>规范整个Team的提交习惯，对技术素养的养成有益<br>可以通过统一工具，抽取规范的message自动形成change log</p>
+<li><p>为什么需要</p>
+<p>  降低Review成本，可以明确知道本次提交的改变和影响<br>  规范整个Team的提交习惯，对技术素养的养成有益<br>  可以通过统一工具，抽取规范的message自动形成change log</p>
 </li>
 <li><p>GitHub Angular Demo</p>
+<p>  目前Github的Angular项目，就是完全采用规范的Git Message来进行日常的提交管理和发布管理的，下面是这个项目的Commit记录，和自动根据commit生成的change log</p>
+<p>  <img src="/2019/01/07/git-message/1.png" alt="22"></p>
+<p>  <img src="/2019/01/07/git-message/2.png" alt="22"></p>
+</li>
+<li><p>遵循什么规范<br>   目前，使用较多的是AngularJS规范</p>
 </li>
 </ul>
-<p>目前Github的Angular项目，就是完全采用规范的Git Message来进行日常的提交管理和发布管理的，下面是这个项目的Commit记录，和自动根据commit生成的change log</p>
-<p><img src="/2019/01/07/git-message/1.png" alt="22"></p>
-<p><img src="/2019/01/07/git-message/2.png" alt="22"></p>
-<ul>
-<li><p>遵循什么规范<br>目前，使用较多的是AngularJS规范</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> # 包括三个部分：Header，Body 和 Footer</span><br><span class="line"> </span><br><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 包括三个部分：Header，Body 和 Footer</span><br><span class="line">		</span><br><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>Header</p>
-<p>包括三个字段：type（必需）、scope（可选）和subject（必需）</p>
-<p>  任何一行都不能超过100个字符</p>
-</li>
+<pre><code> 包括三个字段：type（必需）、scope（可选）和subject（必需）
+任何一行都不能超过100个字符
+</code></pre></li>
 <li><p>type<br>用于说明 commit 的类别，类型包含如下几种</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">		feat: A new feature</span><br><span class="line">		fix: A bug fix</span><br><span class="line">		docs: Documentation only changes</span><br><span class="line">		style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)</span><br><span class="line">		refactor: A code change that neither fixes a bug nor adds a feature</span><br><span class="line">		perf: A code change that improves performance</span><br><span class="line">		test: Adding missing or correcting existing tests</span><br><span class="line">		chore: Changes to the build process or auxiliary tools and libraries such as documentation generation</span><br><span class="line">		revert: Reverts a previous commit</span><br><span class="line">		build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)</span><br><span class="line">		ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)</span><br><span class="line">		如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中。其他情况由你决定，要不要放入 Change log。</span><br><span class="line">    </span><br><span class="line">  ```   </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">*  scope</span><br><span class="line">    用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同</span><br><span class="line"></span><br><span class="line">* subject</span><br><span class="line">    subject是 commit 目的的简短描述</span><br><span class="line"></span><br><span class="line">* Body</span><br><span class="line">    Body 部分是对本次 commit 的详细描述，可以分成多行</span><br><span class="line"></span><br><span class="line">* Footer</span><br><span class="line">    Footer 部分只用于两种情况</span><br><span class="line"></span><br><span class="line">* 不兼容变动</span><br><span class="line">    如果当前代码与上一个版本不兼容，则 Footer 部分以BREAKING CHANGE开头，后面是对变动的描述、以及变动理由和迁移方法</span><br><span class="line"></span><br><span class="line">* 关闭问题</span><br><span class="line">    如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue。</span><br><span class="line"></span><br><span class="line">    如：Closes #123, #245, #992</span><br><span class="line"></span><br><span class="line">* 工具约束</span><br><span class="line">    我们的目标还是要通过工具生成和约束</span><br><span class="line">    </span><br><span class="line">* Commitizen</span><br><span class="line">    commitizen/cz-cli 代替git commit</span><br><span class="line"></span><br><span class="line">    我们需要借助它提供的 git cz 命令替代我们的 git commit 命令, 帮助我们生成符合规范的 commit message</span><br></pre></td></tr></table></figure>
-<h1 id="如何安装，在安装之前请先安装npm"><a href="#如何安装，在安装之前请先安装npm" class="headerlink" title="如何安装，在安装之前请先安装npm"></a>如何安装，在安装之前请先安装npm</h1><h1 id="全局安装-commitizen"><a href="#全局安装-commitizen" class="headerlink" title="全局安装 commitizen"></a>全局安装 commitizen</h1><p>  npm install commitizen -g   </p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">除此之外, 我们还需要为 commitizen 指定一个 Adapter 比如: cz-conventional-changelog (一个符合 Angular团队规范的 preset). 使得 commitizen 按照我们指定的规范帮助我们生成 commit message</span><br></pre></td></tr></table></figure>
+<pre><code>feat: A new feature
+fix: A bug fix
+docs: Documentation only changes
+style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+refactor: A code change that neither fixes a bug nor adds a feature
+perf: A code change that improves performance
+test: Adding missing or correcting existing tests
+chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+revert: Reverts a previous commit
+build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中。其他情况由你决定，要不要放入 Change log。
+</code></pre><ul>
+<li><p>scope<br> 用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同</p>
+</li>
+<li><p>subject<br>  subject是 commit 目的的简短描述</p>
+</li>
+<li><p>Body<br>  Body 部分是对本次 commit 的详细描述，可以分成多行</p>
+</li>
+<li><p>Footer<br>  Footer 部分只用于两种情况</p>
+</li>
+<li><p>不兼容变动<br>  如果当前代码与上一个版本不兼容，则 Footer 部分以BREAKING CHANGE开头，后面是对变动的描述、以及变动理由和迁移方法</p>
+</li>
+<li><p>关闭问题<br>  如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue。</p>
+<p>  如：Closes #123, #245, #992</p>
+</li>
+<li><p>工具约束<br>  我们的目标还是要通过工具生成和约束</p>
+</li>
+<li><p>Commitizen<br>  commitizen/cz-cli 代替git commit</p>
+<p>  我们需要借助它提供的 git cz 命令替代我们的 git commit 命令, 帮助我们生成符合规范的 commit message</p>
+</li>
+</ul>
+<pre><code> 如何安装，在安装之前请先安装npm
+ 全局安装 commitizen
+npm install commitizen -g   
+</code></pre><p>除此之外, 我们还需要为 commitizen 指定一个 Adapter 比如: cz-conventional-changelog (一个符合 Angular团队规范的 preset). 使得 commitizen 按照我们指定的规范帮助我们生成 commit message</p>
 <pre><code># 进入到我们项目的根目录
 cd your_repo_root_path
 # 初始化package.json
 npm init --yes
 # 为commitizen指定适配器
 commitizen init cz-conventional-changelog --save-dev --save-exact
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  现在我们就可以用git cz去进行提交了</span><br><span class="line">  </span><br><span class="line">  ![22](git-message/3.png)</span><br><span class="line">  </span><br><span class="line">* Standard Version</span><br><span class="line">    通过以上工具的帮助, 我们的工程 commit message 应该是符合Angular团队那套，这样也便于我们借助standard-version这样的工具, 自动生成 CHANGELOG, 甚至是语义化的版本号(Semantic Version)</span><br></pre></td></tr></table></figure>
-<pre><code># 在项目根目录
-npm install --save-dev standard-version
-# 在scripts结构体中加入执行脚本
-{
-  &quot;scripts&quot;: {
-    &quot;release&quot;: &quot;standard-version&quot;
-  }
-}
-# 生成changelog
-# 第一次生成
-npm run release -- --first-release
-# 后续生成
-npm run release
-会在我们项目根目录生成一个CHANGELOG.md文件，如下所示
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  ![22](git-message/4.png)</span><br><span class="line">  </span><br><span class="line">* 项目中如何使用</span><br><span class="line">    如果我们已经完成了上述操作，会发现我们最终会得到一个package.json，我们只需要把package.json / commitlint.config.js提交版本库即可</span><br><span class="line"></span><br><span class="line">    把node_modules 和 package-lock.json都加入git忽略文件</span><br><span class="line"></span><br><span class="line">    下次再新clone项目后，直接在项目根目录运行npm install即可完成上述所有步骤</span><br><span class="line">    </span><br><span class="line">    PS：NPM有时候国外镜像不稳定，可以切换淘宝镜像</span><br></pre></td></tr></table></figure>
-<pre><code>npm config set registry https://registry.npm.taobao.org
+</code></pre><p>  现在我们就可以用git cz去进行提交了</p>
+<p>  <img src="/2019/01/07/git-message/3.png" alt="22"></p>
+<ul>
+<li>Standard Version<br>  通过以上工具的帮助, 我们的工程 commit message 应该是符合Angular团队那套，这样也便于我们借助standard-version这样的工具, 自动生成 CHANGELOG, 甚至是语义化的版本号(Semantic Version)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 在项目根目录</span><br><span class="line">npm install --save-dev standard-version</span><br><span class="line"># 在scripts结构体中加入执行脚本</span><br><span class="line">&#123;</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;release&quot;: &quot;standard-version&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"># 生成changelog</span><br><span class="line"># 第一次生成</span><br><span class="line">npm run release -- --first-release</span><br><span class="line"># 后续生成</span><br><span class="line">npm run release</span><br><span class="line">会在我们项目根目录生成一个CHANGELOG.md文件，如下所示</span><br></pre></td></tr></table></figure>
+<p>  <img src="/2019/01/07/git-message/4.png" alt="22"></p>
+<ul>
+<li><p>项目中如何使用<br>  如果我们已经完成了上述操作，会发现我们最终会得到一个package.json，我们只需要把package.json / commitlint.config.js提交版本库即可</p>
+<p>  把node_modules 和 package-lock.json都加入git忽略文件</p>
+<p>  下次再新clone项目后，直接在项目根目录运行npm install即可完成上述所有步骤</p>
+<p>  PS：NPM有时候国外镜像不稳定，可以切换淘宝镜像</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
-```
-</code></pre>
     </div>
 
     <div class="post-footer">
