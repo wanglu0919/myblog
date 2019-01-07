@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>composer 私服搭建 | 猴哥的Blog</title>
+<title>优雅的提交Git Message | 猴哥的Blog</title>
 
 
     <link rel="alternate" href="/atom.xml" title="猴哥的Blog" type="application/atom+xml">
@@ -162,9 +162,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="composer 私服搭建">
+        <h1 id="优雅的提交Git Message">
             
-	            composer 私服搭建
+	            优雅的提交Git Message
             
         </h1>
         <div class="post-meta">
@@ -196,7 +196,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/04/28</span>
+            <span class="date-meta">2019/01/07</span>
         </span>
     
 </div>
@@ -206,41 +206,52 @@
     </div>
     
     <div class="post-body post-content">
-        <p>通过<br><a href="https://github.com/composer/satis" target="_blank" rel="noopener">https://github.com/composer/satis</a> 的web satisfy 方案进行搭建<br><a href="https://github.com/ludofleury/satisfy" target="_blank" rel="noopener">https://github.com/ludofleury/satisfy</a></p>
-<h3 id="搭建步骤如下："><a href="#搭建步骤如下：" class="headerlink" title="搭建步骤如下："></a>搭建步骤如下：</h3><ul>
-<li>git clone <a href="https://github.com/ludofleury/satisfy" target="_blank" rel="noopener">https://github.com/ludofleury/satisfy</a> /目标地址<br>/Users/wanglu/work/slightech/hexo_work/source/_posts/hello-world.md</li>
-<li>修改 docker-compose.yml 如下</li>
+        <ul>
+<li><p>为什么需要<br>降低Review成本，可以明确知道本次提交的改变和影响<br>规范整个Team的提交习惯，对技术素养的养成有益<br>可以通过统一工具，抽取规范的message自动形成change log</p>
+</li>
+<li><p>GitHub Angular Demo</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  satisfy:</span><br><span class="line">    container_name: satisfy</span><br><span class="line">    build: ./docker</span><br><span class="line">    volumes:</span><br><span class="line">      - .:/var/www/satisfy</span><br><span class="line">      # - ./html:/var/www/html</span><br><span class="line">      - ./ssh_key:/root/.ssh</span><br><span class="line">    environment:</span><br><span class="line">      APP_PATH: /var/www/satisfy</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;10003:80&quot;</span><br><span class="line">      -</span><br></pre></td></tr></table></figure>
+<p>目前Github的Angular项目，就是完全采用规范的Git Message来进行日常的提交管理和发布管理的，下面是这个项目的Commit记录，和自动根据commit生成的change log</p>
+<p><img src="/2019/01/07/git-message/1.png" alt="22"></p>
+<p><img src="/2019/01/07/git-message/2.png" alt="22"></p>
 <ul>
-<li>修改自动构配置  docker/conf/cron.conf   </li>
+<li><p>遵循什么规范<br>目前，使用较多的是AngularJS规范</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> # 包括三个部分：Header，Body 和 Footer</span><br><span class="line"> </span><br><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;body&gt;</span><br><span class="line">// 空一行</span><br><span class="line">&lt;footer&gt;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * root /usr/local/bin/php /var/www/satisfy/bin/console satisfy:rebuild  /var/www/satisfy/satis.json /var/www/html &gt; /tmp/satis.log</span><br></pre></td></tr></table></figure>
 <ul>
-<li>启动服务<br>docker-compose up -d 启动服务<br>访问 homepage 查看 是否正常<br>进入docker 容器，初始话配置</li>
+<li><p>Header</p>
+<p>包括三个字段：type（必需）、scope（可选）和subject（必需）</p>
+<p>  任何一行都不能超过100个字符</p>
+</li>
+<li><p>type<br>用于说明 commit 的类别，类型包含如下几种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">feat: A new feature</span><br><span class="line">fix: A bug fix</span><br><span class="line">docs: Documentation only changes</span><br><span class="line">style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)</span><br><span class="line">refactor: A code change that neither fixes a bug nor adds a feature</span><br><span class="line">perf: A code change that improves performance</span><br><span class="line">test: Adding missing or correcting existing tests</span><br><span class="line">chore: Changes to the build process or auxiliary tools and libraries such as documentation generation</span><br><span class="line">revert: Reverts a previous commit</span><br><span class="line">build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)</span><br><span class="line">ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)</span><br><span class="line">    如果type为feat和fix，则该 commit 将肯定出现在 Change log 之中。其他情况由你决定，要不要放入 Change log。</span><br><span class="line">    </span><br><span class="line">  ```   </span><br><span class="line">  </span><br><span class="line">*  scope</span><br><span class="line">    用于说明 commit 影响的范围，比如数据层、控制层、视图层等等，视项目不同而不同</span><br><span class="line"></span><br><span class="line">* subject</span><br><span class="line">    subject是 commit 目的的简短描述</span><br><span class="line"></span><br><span class="line">* Body</span><br><span class="line">    Body 部分是对本次 commit 的详细描述，可以分成多行</span><br><span class="line"></span><br><span class="line">* Footer</span><br><span class="line">    Footer 部分只用于两种情况</span><br><span class="line"></span><br><span class="line">* 不兼容变动</span><br><span class="line">    如果当前代码与上一个版本不兼容，则 Footer 部分以BREAKING CHANGE开头，后面是对变动的描述、以及变动理由和迁移方法</span><br><span class="line"></span><br><span class="line">* 关闭问题</span><br><span class="line">    如果当前 commit 针对某个issue，那么可以在 Footer 部分关闭这个 issue。</span><br><span class="line"></span><br><span class="line">    如：Closes #123, #245, #992</span><br><span class="line"></span><br><span class="line">* 工具约束</span><br><span class="line">    我们的目标还是要通过工具生成和约束</span><br><span class="line">    </span><br><span class="line">* Commitizen</span><br><span class="line">    commitizen/cz-cli 代替git commit</span><br><span class="line"></span><br><span class="line">    我们需要借助它提供的 git cz 命令替代我们的 git commit 命令, 帮助我们生成符合规范的 commit message</span><br></pre></td></tr></table></figure>
+<h1 id="如何安装，在安装之前请先安装npm"><a href="#如何安装，在安装之前请先安装npm" class="headerlink" title="如何安装，在安装之前请先安装npm"></a>如何安装，在安装之前请先安装npm</h1><h1 id="全局安装-commitizen"><a href="#全局安装-commitizen" class="headerlink" title="全局安装 commitizen"></a>全局安装 commitizen</h1><p>  npm install commitizen -g   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">除此之外, 我们还需要为 commitizen 指定一个 Adapter 比如: cz-conventional-changelog (一个符合 Angular团队规范的 preset). 使得 commitizen 按照我们指定的规范帮助我们生成 commit message</span><br></pre></td></tr></table></figure>
+<h1 id="进入到我们项目的根目录"><a href="#进入到我们项目的根目录" class="headerlink" title="进入到我们项目的根目录"></a>进入到我们项目的根目录</h1></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  1. 生成ssh key : ssh-keygen -t rsa -C &quot;GitLab&quot; -b 4096</span><br><span class="line">  2. 给ssh key 权限：</span><br><span class="line">   chmod 600 ~/.ssh/id_rsa</span><br><span class="line">   chmod 600 ~/.ssh/id_rsa.pub</span><br><span class="line">   chmod 644 ~/.ssh/known_hosts</span><br><span class="line">   chmod 755 ~/.ssh</span><br><span class="line">  3.初始化配置satis.json 文件</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;name&quot;: &quot;Test Composer &quot;,</span><br><span class="line">    &quot;homepage&quot;: &quot;http:\/\/mycomposer.com:10003&quot;,</span><br><span class="line">    &quot;repositories&quot;: [</span><br><span class="line">        </span><br><span class="line">    ],</span><br><span class="line">    &quot;require-all&quot;: true,</span><br><span class="line">    &quot;archive&quot;: &#123;</span><br><span class="line">        &quot;directory&quot;: &quot;dist&quot;,</span><br><span class="line">        &quot;format&quot;: &quot;tar&quot;,</span><br><span class="line">        &quot;skip-dev&quot;: true,</span><br><span class="line">        &quot;whitelist&quot;: [],</span><br><span class="line">        &quot;blacklist&quot;: [],</span><br><span class="line">        &quot;prefix-url&quot;: &quot;http:\/\/mycomposer.com:10003\/&quot;,</span><br><span class="line">        &quot;checksum&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;config&quot;: &#123;&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">* 在docker容器中执行命令看是否成功执行</span><br></pre></td></tr></table></figure>
-<p> root /usr/local/bin/php /var/www/satisfy/bin/console satisfy:rebuild  /var/www/satisfy/satis.json /var/www/html &gt; /tmp/satis.log</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 配置 gitlab deploy key  </span><br><span class="line">拷贝 ssh_key/id_rsa_pub 内容，添加至gitlab deploy rsa 内容处</span><br><span class="line"></span><br><span class="line">* 添加仓库代码地址</span><br><span class="line">http://mycomposer.com/admin/</span><br><span class="line">注意： 添加gitlab 仓库，类型请选择 VCS ，否则无法构建，添加后，等自动构建完成，访问homepage 可以看到生成的package信息</span><br><span class="line"></span><br><span class="line">* 使用仓库</span><br></pre></td></tr></table></figure>
-<pre><code>在项目composer.json中添加 私服地址 配置如下
-
-&quot;repositories&quot;: [{
- &quot;type&quot;: &quot;composer&quot;,
- &quot;url&quot;: &quot;http://mycomposer.com&quot;
-}]
-添加包依赖
-
-&quot;require&quot;: {
- &quot;test-sdk/test-sdk&quot;: &quot;1.0.0&quot;
+<p>cd your_repo_root_path</p>
+<h1 id="初始化package-json"><a href="#初始化package-json" class="headerlink" title="初始化package.json"></a>初始化package.json</h1><p>npm init –yes</p>
+<h1 id="为commitizen指定适配器"><a href="#为commitizen指定适配器" class="headerlink" title="为commitizen指定适配器"></a>为commitizen指定适配器</h1><p>commitizen init cz-conventional-changelog –save-dev –save-exact<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  现在我们就可以用git cz去进行提交了</span><br><span class="line">  ![22](git-message/3.png)</span><br><span class="line">  </span><br><span class="line">* Standard Version</span><br><span class="line">    通过以上工具的帮助, 我们的工程 commit message 应该是符合Angular团队那套，这样也便于我们借助standard-version这样的工具, 自动生成 CHANGELOG, 甚至是语义化的版本号(Semantic Version)</span><br></pre></td></tr></table></figure></p>
+<pre><code># 在项目根目录
+npm install --save-dev standard-version
+# 在scripts结构体中加入执行脚本
+{
+  &quot;scripts&quot;: {
+    &quot;release&quot;: &quot;standard-version&quot;
+  }
 }
-配置 http 允许，否则无法拉去http 私服包
-
-&quot;config&quot; : {
- &quot;secure-http&quot;: false
-}
-测试 composer update or  composer install
-</code></pre><p><code>`</code></p>
-
+# 生成changelog
+# 第一次生成
+npm run release -- --first-release
+# 后续生成
+npm run release
+会在我们项目根目录生成一个CHANGELOG.md文件，如下所示
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 项目中如何使用</span><br><span class="line">    如果我们已经完成了上述操作，会发现我们最终会得到一个package.json，我们只需要把package.json / commitlint.config.js提交版本库即可</span><br><span class="line"></span><br><span class="line">    把node_modules 和 package-lock.json都加入git忽略文件</span><br><span class="line"></span><br><span class="line">    下次再新clone项目后，直接在项目根目录运行npm install即可完成上述所有步骤</span><br><span class="line">    </span><br><span class="line">    PS：NPM有时候国外镜像不稳定，可以切换淘宝镜像</span><br></pre></td></tr></table></figure>
+<pre><code>npm config set registry https://registry.npm.taobao.org
+```
+</code></pre>
     </div>
 
     <div class="post-footer">
@@ -255,11 +266,11 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2018/04/28/http:/www.baidu.com/" class="pre-post btn btn-default" title='后端标题测试'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">后端标题测试</span>
-        </a>
     
+        <a href="/2018/04/28/hello-world/" class="next-post btn btn-default" title='Hello World'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Hello World</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
     
 </div>
 

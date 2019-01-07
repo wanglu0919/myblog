@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>composer 私服搭建 | 猴哥的Blog</title>
+<title>归档：2019 | 猴哥的Blog</title>
 
 
     <link rel="alternate" href="/atom.xml" title="猴哥的Blog" type="application/atom+xml">
@@ -158,111 +158,21 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
-<article class="post">
-    <div class="post-head">
-        <h1 id="composer 私服搭建">
-            
-	            composer 私服搭建
-            
-        </h1>
-        <div class="post-meta">
-    
-    
-    <span class="categories-meta fa-wrap">
-        <i class="fa fa-folder-open-o"></i>
-        <a href="/categories/其他">
-            其他
-        </a>
-    </span>
-    
-    
-    <span class="fa-wrap">
-        <i class="fa fa-tags"></i>
-        <span class="tags-meta">
-            
-                
-                    <a href="/tags/私服" title='私服'>
-                        私服
-                    </a>
-                
-            
-        </span>
-    </span>
-    
-
-    
+                <main class="col-md-8 main-content ">
+                    <div id="main">
+  <div id="post-list">
+    <ul class="archives-post-list">
+    	<h1 class="info">2019年 月</h1>
         
-        <span class="fa-wrap">
-            <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2018/04/28</span>
-        </span>
-    
+          <li class="post-items" _href="/2019/01/07/git-message/">
+            <h3 class="post-item-title">
+            	<a href="/2019/01/07/git-message/"> 优雅的提交Git Message </a>
+            </h3>  
+          </li>
+        
+    </ul>
+  </div>
 </div>
-
-            
-            
-    </div>
-    
-    <div class="post-body post-content">
-        <p>通过<br><a href="https://github.com/composer/satis" target="_blank" rel="noopener">https://github.com/composer/satis</a> 的web satisfy 方案进行搭建<br><a href="https://github.com/ludofleury/satisfy" target="_blank" rel="noopener">https://github.com/ludofleury/satisfy</a></p>
-<h3 id="搭建步骤如下："><a href="#搭建步骤如下：" class="headerlink" title="搭建步骤如下："></a>搭建步骤如下：</h3><ul>
-<li>git clone <a href="https://github.com/ludofleury/satisfy" target="_blank" rel="noopener">https://github.com/ludofleury/satisfy</a> /目标地址<br>/Users/wanglu/work/slightech/hexo_work/source/_posts/hello-world.md</li>
-<li>修改 docker-compose.yml 如下</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  satisfy:</span><br><span class="line">    container_name: satisfy</span><br><span class="line">    build: ./docker</span><br><span class="line">    volumes:</span><br><span class="line">      - .:/var/www/satisfy</span><br><span class="line">      # - ./html:/var/www/html</span><br><span class="line">      - ./ssh_key:/root/.ssh</span><br><span class="line">    environment:</span><br><span class="line">      APP_PATH: /var/www/satisfy</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;10003:80&quot;</span><br><span class="line">      -</span><br></pre></td></tr></table></figure>
-<ul>
-<li>修改自动构配置  docker/conf/cron.conf   </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * root /usr/local/bin/php /var/www/satisfy/bin/console satisfy:rebuild  /var/www/satisfy/satis.json /var/www/html &gt; /tmp/satis.log</span><br></pre></td></tr></table></figure>
-<ul>
-<li>启动服务<br>docker-compose up -d 启动服务<br>访问 homepage 查看 是否正常<br>进入docker 容器，初始话配置</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">  1. 生成ssh key : ssh-keygen -t rsa -C &quot;GitLab&quot; -b 4096</span><br><span class="line">  2. 给ssh key 权限：</span><br><span class="line">   chmod 600 ~/.ssh/id_rsa</span><br><span class="line">   chmod 600 ~/.ssh/id_rsa.pub</span><br><span class="line">   chmod 644 ~/.ssh/known_hosts</span><br><span class="line">   chmod 755 ~/.ssh</span><br><span class="line">  3.初始化配置satis.json 文件</span><br><span class="line">    &#123;</span><br><span class="line">    &quot;name&quot;: &quot;Test Composer &quot;,</span><br><span class="line">    &quot;homepage&quot;: &quot;http:\/\/mycomposer.com:10003&quot;,</span><br><span class="line">    &quot;repositories&quot;: [</span><br><span class="line">        </span><br><span class="line">    ],</span><br><span class="line">    &quot;require-all&quot;: true,</span><br><span class="line">    &quot;archive&quot;: &#123;</span><br><span class="line">        &quot;directory&quot;: &quot;dist&quot;,</span><br><span class="line">        &quot;format&quot;: &quot;tar&quot;,</span><br><span class="line">        &quot;skip-dev&quot;: true,</span><br><span class="line">        &quot;whitelist&quot;: [],</span><br><span class="line">        &quot;blacklist&quot;: [],</span><br><span class="line">        &quot;prefix-url&quot;: &quot;http:\/\/mycomposer.com:10003\/&quot;,</span><br><span class="line">        &quot;checksum&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;config&quot;: &#123;&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">```  </span><br><span class="line">* 在docker容器中执行命令看是否成功执行</span><br></pre></td></tr></table></figure>
-<p> root /usr/local/bin/php /var/www/satisfy/bin/console satisfy:rebuild  /var/www/satisfy/satis.json /var/www/html &gt; /tmp/satis.log</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* 配置 gitlab deploy key  </span><br><span class="line">拷贝 ssh_key/id_rsa_pub 内容，添加至gitlab deploy rsa 内容处</span><br><span class="line"></span><br><span class="line">* 添加仓库代码地址</span><br><span class="line">http://mycomposer.com/admin/</span><br><span class="line">注意： 添加gitlab 仓库，类型请选择 VCS ，否则无法构建，添加后，等自动构建完成，访问homepage 可以看到生成的package信息</span><br><span class="line"></span><br><span class="line">* 使用仓库</span><br></pre></td></tr></table></figure>
-<pre><code>在项目composer.json中添加 私服地址 配置如下
-
-&quot;repositories&quot;: [{
- &quot;type&quot;: &quot;composer&quot;,
- &quot;url&quot;: &quot;http://mycomposer.com&quot;
-}]
-添加包依赖
-
-&quot;require&quot;: {
- &quot;test-sdk/test-sdk&quot;: &quot;1.0.0&quot;
-}
-配置 http 允许，否则无法拉去http 私服包
-
-&quot;config&quot; : {
- &quot;secure-http&quot;: false
-}
-测试 composer update or  composer install
-</code></pre><p><code>`</code></p>
-
-    </div>
-
-    <div class="post-footer">
-        <div>
-            
-        </div>
-        <div>
-            
-        </div>
-    </div>
-</article>
-
-<div class="article-nav prev-next-wrap clearfix">
-    
-        <a href="/2018/04/28/http:/www.baidu.com/" class="pre-post btn btn-default" title='后端标题测试'>
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">后端标题测试</span>
-        </a>
-    
-    
-</div>
-
 
 
 
