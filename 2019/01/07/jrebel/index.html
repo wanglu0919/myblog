@@ -27,7 +27,7 @@
     <!--Title-->
 
 
-<title>归档：2018 | 猴哥的Blog</title>
+<title>使用Jrebel 热部署方式提升开发效率 | 猴哥的Blog</title>
 
 
     <link rel="alternate" href="/atom.xml" title="猴哥的Blog" type="application/atom+xml">
@@ -158,27 +158,100 @@
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content ">
-                    <div id="main">
-  <div id="post-list">
-    <ul class="archives-post-list">
-    	<h1 class="info">2018年 月</h1>
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="使用Jrebel 热部署方式提升开发效率">
+            
+	            使用Jrebel 热部署方式提升开发效率
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/Java">
+            Java
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/git" title='git'>
+                        git
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
         
-          <li class="post-items" _href="/2018/04/28/discourse_deploy/">
-            <h3 class="post-item-title">
-            	<a href="/2018/04/28/discourse_deploy/"> discourse 社区部署 </a>
-            </h3>  
-          </li>
-        
-          <li class="post-items" _href="/2018/04/28/php-composer/">
-            <h3 class="post-item-title">
-            	<a href="/2018/04/28/php-composer/"> composer 私服搭建 </a>
-            </h3>  
-          </li>
-        
-    </ul>
-  </div>
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/07</span>
+        </span>
+    
 </div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-IDEA-安装Jrebel-插件"><a href="#1-IDEA-安装Jrebel-插件" class="headerlink" title="1.IDEA 安装Jrebel 插件"></a>1.IDEA 安装Jrebel 插件</h3><p>Prefrences-&gt;Plugins-&gt;Browse repositories → 搜索Jrebel 进行安装</p>
+<p>如下图：<br>    <img src="/2019/01/07/jrebel/jrebel_1.png" alt="22"></p>
+<p>安装后重启IDEA </p>
+<p>2.破解激活Jrebel</p>
+<p><img src="/2019/01/07/jrebel/jrebel_2.png" alt="22"></p>
+<p>licensing service server 处输入地址</p>
+<p><a href="http://139.199.89.239:1008/a13dce66-9520-4ddb-9134-3b3eab031749" target="_blank" rel="noopener">http://139.199.89.239:1008/a13dce66-9520-4ddb-9134-3b3eab031749</a></p>
+<p>地址后面的UUID，自己在线生成一个  <a href="http://www.ofmonkey.com/transfer/guid" target="_blank" rel="noopener">http://www.ofmonkey.com/transfer/guid</a></p>
+<p>邮箱随便输入</p>
+<p>3.设置Jrebel 离线模式</p>
+<p><img src="/2019/01/07/jrebel/jrebel_3.png" alt="22">s<br>4.配置IDEA<br>4.1勾选Build project automatically<br>File——Settings——Compiler,右侧找到勾选项。</p>
+<p><img src="/2019/01/07/jrebel/jrebel_4.png" alt="22"></p>
+<p>4.2勾选compiler.automake.allow.when.app.running<br>快捷键：CTRL + SHIFT + Alt + /<br><img src="/2019/01/07/jrebel/jrebel_5.png" alt="22"></p>
+<p><img src="/2019/01/07/jrebel/jrebel_6.png" alt="22"></p>
+<p>5.启动项目使用Jrebel 启动测试项目<br><img src="/2019/01/07/jrebel/jrebel_7.png" alt="22"></p>
+<p>6.重新build project<br>Jrebel虽然可以自动reload更改的文件，但是通常需要等半分钟左右，我们可以手动进行build，避免没用的时间等待。</p>
+<p>手动构建项目 Build→Build Project</p>
+<p>可以测试，修改Controller 代码后，不用重启服务，刷新页面，立马生效。效率飞升！！！s</p>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/01/07/git-message/" class="pre-post btn btn-default" title='优雅的提交Git Message'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">优雅的提交Git Message</span>
+        </a>
+    
+    
+        <a href="/2019/01/07/sprintboot-post-自动转换/" class="next-post btn btn-default" title='SpringMVC Post 接口实现json 入参自动转换成 Bean'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">SpringMVC Post 接口实现json 入参自动转换成 Bean</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
 
 
 
