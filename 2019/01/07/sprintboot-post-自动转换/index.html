@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="">
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="猴哥的Blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+
+
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+
+<title>SpringMVC Post 接口实现json 入参自动转换成 Bean | 猴哥的Blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="猴哥的Blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css?rev=3.3.4">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+</head>
+
+
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header"  style="background-image:url(http://7xpw2b.com1.z0.glb.clouddn.com/hexo-sinppet/img/banner2.jpg)"  >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='John Doe'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 一行代码上青天 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/java/"><i class="fa "></i>Java</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/php/"><i class="fa "></i>PHP</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/javascript/"><i class="fa "></i>Javascript</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/scala/"><i class="fa "></i>Scala</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/go/"><i class="fa "></i>Go</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/nodeJS/"><i class="fa "></i>NodeJS</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/andorid/"><i class="fa "></i>Android</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/db/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/blockchain/"><i class="fa "></i>区块链</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/linux/"><i class="fa "></i>Linux</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/其他/"><i class="fa "></i>其他</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="SpringMVC Post 接口实现json 入参自动转换成 Bean">
+            
+	            SpringMVC Post 接口实现json 入参自动转换成 Bean
+            
+        </h1>
+        <div class="post-meta">
+    
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a href="/categories/Java">
+            Java
+        </a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+                
+                    <a href="/tags/git" title='git'>
+                        git
+                    </a>
+                
+            
+        </span>
+    </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/07</span>
+        </span>
+    
+</div>
+
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>1.列如下方代码是接口 是一个post 方法， data 是客户端的的json 对象。怎么实现自动转换呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package com.slightech.marvin.api.visitor.app.controller;</span><br><span class="line"></span><br><span class="line">import com.google.common.collect.Maps;</span><br><span class="line">import com.slightech.marvin.api.doc.annotation.*;</span><br><span class="line">import com.slightech.marvin.api.doc.model.SupportClientType;</span><br><span class="line">import com.slightech.marvin.api.tools.api.constants.ApiConstant;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.dto.CapacityPackageDTO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.dto.GetCapacityPackageListDTO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.dto.GetCapacityPayListDTO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.dto.InitBuildingCapacityPackageDTO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.response.GetPageDataListResponse;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.response.GetPayListResponse;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.service.CapacityPackageService;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.utils.Constant;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.vo.BusinessCapacityPackageVO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.vo.CapacityPackageVO;</span><br><span class="line">import com.slightech.marvin.api.visitor.app.vo.MiniPackagePayRuleVO;</span><br><span class="line">import lombok.val;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line">import org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.List;</span><br><span class="line">import java.util.Map;</span><br><span class="line">import java.util.Objects;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 容量套餐</span><br><span class="line"> *</span><br><span class="line"> * @author willardwang</span><br><span class="line"> * @date 2019/01/28</span><br><span class="line"> */</span><br><span class="line">@RequestMapping(value = &quot;package&quot;, produces = &quot;application/json;charset=UTF-8&quot;)</span><br><span class="line">@RestController</span><br><span class="line">@MarvinApiDoc(value = &quot;套餐&quot;, order = 996)</span><br><span class="line">public class CapacityPackageController extends BaseController &#123;</span><br><span class="line"></span><br><span class="line">    private static Logger logger = LoggerFactory.getLogger(Constant.CAPACITY_PACKAGE_LOGGER_NAME);</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private CapacityPackageService capacityPackageService;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 初始化套餐</span><br><span class="line">     */</span><br><span class="line">    @RequestMapping(value = &quot;init&quot;, method = RequestMethod.POST)</span><br><span class="line">    public String initBuildingPackage(@RequestParam(&quot;data&quot;) InitBuildingCapacityPackageDTO initBuildingCapacityPackageDTO) throws IOException &#123;</span><br><span class="line">        logParams(initBuildingCapacityPackageDTO);</span><br><span class="line">        if (initBuildingCapacityPackageDTO.getBuildingId() == null || initBuildingCapacityPackageDTO.getBuildingId() == 0) &#123;</span><br><span class="line">            logger.warn(&quot;缺少参数building_id&quot;);</span><br><span class="line">            return buildResponseParamLack();</span><br><span class="line">        &#125;</span><br><span class="line">        if (initBuildingCapacityPackageDTO.getPackageList() == null || initBuildingCapacityPackageDTO.getPackageList().isEmpty()) &#123;</span><br><span class="line">            logger.warn(&quot;缺少参数套餐数据&quot;);</span><br><span class="line">            return buildResponseParamLack();</span><br><span class="line">        &#125;</span><br><span class="line">        capacityPackageService.initBuildingCapacityPackage(initBuildingCapacityPackageDTO);</span><br><span class="line">        return buildResponseSuccess();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"> `</span><br></pre></td></tr></table></figure>
+<p> 2.自定义转换的Scanner 在Spring 启动的时候扫描Controller的接口方法，发现是data 方法的，自定义的了类，把当前转换类类型转入Set 中</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"> package com.slightech.marvin.api.tools.api.data;</span><br><span class="line"></span><br><span class="line">import com.slightech.marvin.api.tools.api.constants.ApiConstant;</span><br><span class="line">import org.springframework.beans.BeansException;</span><br><span class="line">import org.springframework.beans.factory.config.BeanPostProcessor;</span><br><span class="line">import org.springframework.stereotype.Component;</span><br><span class="line">import org.springframework.util.ReflectionUtils;</span><br><span class="line">import org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.Method;</span><br><span class="line">import java.lang.reflect.Parameter;</span><br><span class="line">import java.util.HashSet;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author willardwang</span><br><span class="line"> * @description data 自动转换</span><br><span class="line"> * @date 2019/05/24</span><br><span class="line"> */</span><br><span class="line">@Component</span><br><span class="line">public class RequestJsonDataToBeanScanner implements BeanPostProcessor  &#123;</span><br><span class="line">    Set&lt;Class&gt; jsonToBeanClass = new HashSet&lt;&gt;();</span><br><span class="line">    @Override</span><br><span class="line">    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException &#123;</span><br><span class="line">        Method[] methods = ReflectionUtils.getAllDeclaredMethods(bean.getClass());</span><br><span class="line">        if (methods != null) &#123;</span><br><span class="line">            for (Method method : methods) &#123;</span><br><span class="line">                Parameter[] pms = method.getParameters();</span><br><span class="line">                for (int i =0 ; i &lt; pms.length; i++) &#123;</span><br><span class="line">                    Parameter parameter = pms[i];</span><br><span class="line">                    RequestParam requestParam = parameter.getAnnotation(RequestParam.class);</span><br><span class="line">                    if (requestParam != null &amp;&amp; “data”.equals(requestParam.value())) &#123;</span><br><span class="line">                        String dataTypeName = parameter.getParameterizedType().getTypeName();</span><br><span class="line">                        if (!dataTypeName.equals(&quot;java.lang.String&quot;)) &#123;</span><br><span class="line">                            jsonToBeanClass.add(method.getParameterTypes()[i]);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return bean;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public  Set&lt;Class&gt; getJsonToBeanClass() &#123;</span><br><span class="line">        return jsonToBeanClass;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>BaseController 中加入我自定义转换器</li>
+</ol>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> package com.slightech.marvin.api.tools.api;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.core.JsonProcessingException;</span><br><span class="line">import com.slightech.marvin.api.tools.api.data.RequestJsonDataEditor;</span><br><span class="line">import com.slightech.marvin.api.tools.api.data.RequestJsonDataToBeanScanner;</span><br><span class="line">import com.slightech.marvin.api.tools.common.JsonUtil;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line">import org.springframework.web.bind.WebDataBinder;</span><br><span class="line">import org.springframework.web.bind.annotation.InitBinder;</span><br><span class="line"></span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author liuyang</span><br><span class="line"> */</span><br><span class="line">public abstract class BaseController &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    RequestJsonDataToBeanScanner requestJsonDataToBeanScanner;</span><br><span class="line"></span><br><span class="line">    @InitBinder</span><br><span class="line">    public void InitBinder(WebDataBinder binder) &#123;</span><br><span class="line">        Set&lt;Class&gt; classSet = requestJsonDataToBeanScanner.getJsonToBeanClass();</span><br><span class="line">        for (Class clazz : classSet) &#123;</span><br><span class="line">            RequestJsonDataEditor requestJsonDataEditor = new RequestJsonDataEditor(clazz);</span><br><span class="line">            binder.registerCustomEditor(clazz, requestJsonDataEditor);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> `</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>转换代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> package com.slightech.marvin.api.tools.api.data;</span><br><span class="line"></span><br><span class="line">import com.slightech.marvin.api.tools.common.JsonUtil;</span><br><span class="line"></span><br><span class="line">import java.beans.PropertyEditorSupport;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author willardwang</span><br><span class="line"> * @description</span><br><span class="line"> * @date 2019/05/16</span><br><span class="line"> */</span><br><span class="line">public class RequestJsonDataEditor extends PropertyEditorSupport &#123;</span><br><span class="line"></span><br><span class="line">    private Class clazz;</span><br><span class="line">    public RequestJsonDataEditor(Class clazz) &#123;</span><br><span class="line">        this.clazz = clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String getAsText() &#123;</span><br><span class="line">        return getValue().toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void setAsText(String text) throws IllegalArgumentException &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            setValue(JsonUtil.jsonStr2Bean(text, this.clazz));</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            throw new RuntimeException(text + &quot;data 转 bean 异常&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+    </div>
+
+    <div class="post-footer">
+        <div>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/01/07/git-message/" class="pre-post btn btn-default" title='优雅的提交Git Message'>
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">优雅的提交Git Message</span>
+        </a>
+    
+    
+        <a href="/2019/01/07/数据库备份与还原命令/" class="next-post btn btn-default" title='Mysql 数据库备份与还原'>
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Mysql 数据库备份与还原</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+
+
+
+
+                </main>
+                
+    <aside class="col-md-4 sidebar">
+        
+        
+    <div class="widget">    
+        <h3 class="title">搜索</h3>
+        <div id="search-form">
+            <div id="result-mask" class="hide"></div>
+            <div class="search-area">
+                
+                    <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢?">
+                    <button type="button" class="search-form-submit" id="search-local">站内搜索</button>
+                
+                
+            </div>
+            <div id="result-wrap" class="hide">
+                <div id="search-result"></div>
+            </div>
+            <div class="hide">
+                <template id="search-tpl">
+                    <div class="item">
+                        <a href="/{path}" title="{title}">
+                            <div class="title">{title}</div>
+                            <div class="content">{content}</div>
+                        </a>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+        
+        
+    <div class="widget notification">
+        <h3 class="title">网站公告</h3>
+        <div>
+            欢迎来到猴哥的技术博客
+        </div>
+    </div>
+
+        
+        
+    <div class="widget">
+      <h3 class="title">社交</h3> 
+        <div class="content social">
+            
+	            <a href="//github.com/wanglu0919" rel="external nofollow" title="Github" target="_blank">
+			    	<i class="git fa fa-git"></i>
+			    </a>
+            
+	            <a href="mailto:wanglu0919@163.com" rel="external nofollow" title="邮箱" target="_blank">
+			    	<i class="envelope-o fa fa-envelope-o"></i>
+			    </a>
+            
+	            <a href="631872807" rel="external nofollow" title="联系QQ" target="_blank">
+			    	<i class="qq fa fa-qq"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="微博" target="_blank">
+			    	<i class="weibo fa fa-weibo"></i>
+			    </a>
+            
+	            <a href="/" rel="external nofollow" title="QQ群" target="_blank">
+			    	<i class="users fa fa-users"></i>
+			    </a>
+            
+	            <a href="/atom.xml" rel="external nofollow" title="RSS" target="_blank">
+			    	<i class="feed fa fa-feed"></i>
+			    </a>
+            
+        </div>
+    </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">分类</h3>
+        <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/"><i class="fa" aria-hidden="true">Java</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/db/"><i class="fa" aria-hidden="true">db</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link current" href="/categories/其他/"><i class="fa" aria-hidden="true">其他</i></a><span class="category-list-count">3</span></li></ul>
+    </div>
+
+
+        
+        
+    <div class="widget">
+      <h3 class="title">归档</h3>
+        <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/"><i class="fa" aria-hidden="true">January 2019</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/"><i class="fa" aria-hidden="true">April 2018</i></a><span class="archive-list-count">2</span></li></ul>
+    </div>
+
+
+        
+        
+  <div class="widget">
+    <h3 class="title">标签云</h3>
+    <div class="content tag-cloud">
+        <a href="/tags/git/" style="font-size: 20px;">git</a> <a href="/tags/私服/" style="font-size: 10px;">私服</a> <a href="/tags/论坛/" style="font-size: 10px;">论坛</a>
+    </div>
+  </div>
+
+
+        
+        
+    <div class="widget">
+        <h3 class="title">友链</h3>
+        <div class="content friends-link">
+        
+            <a href="https://wanglu0919.github.io/" class="fa" target="_blank">个人博客</a>
+        
+        </div>
+    </div>
+
+
+        
+    </aside>
+
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <span>Copyright &copy; 2017
+                </span> | 
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> | 
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	<script src="/js/search.js?rev=@@hash"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+
+</body>
+</html>
